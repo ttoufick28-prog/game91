@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lucky Wheel | Game 9</title>
+  <style>
+  body {
+    background: #020617;
+    color: #fff;
+    text-align: center;
+    font-family: Arial;
+  }
+
+  .wheel {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 10px solid #22c55e;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: transform 3s ease-out;
+    background: radial-gradient(circle, #1e293b, #020617);
+  }
+
+  button {
+    padding: 12px 30px;
+    font-size: 18px;
+    background: #22c55e;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+
+  /* 📱 Mobile Optimization — MUST be inside style */
+  @media (max-width: 768px) {
+    .wheel {
+      width: 180px;
+      height: 180px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 80%;
+      font-size: 16px;
+    }
+  }
+</style>
+
+
+</head>
+<body>
+
+<h1>🎡 Lucky Wheel</h1>
+
+<div class="wheel" id="wheel">SPIN</div>
+
+<button onclick="spin()">Spin Now</button>
+
+<p id="result"></p>
+
+<a href="../index.html">← Back to Home</a>
+
+<script>
+const prizes = [
+  { text: "🎉 50 Points", value: 50 },
+  { text: "🔥 100 Points", value: 100 },
+  { text: "💎 Jackpot", value: 500 },
+  { text: "🙃 10 Points", value: 10 },
+  { text: "😐 Try Again", value: 0 }
+];
+
+let rotation = 0;
+let canSpin = true;
+let cooldown = 5;
+
+// Load saved points
+let totalPoints = localStorage.getItem("points")
+  ? parseInt(localStorage.getItem("points"))
+  : 0;
+
+document.getElementById("result").innerText =
+  "Total Points: " + totalPoints;
+
+function spin() {
+
+  // ✅ Last played game save (AI Recommendation)
+  localStorage.setItem("lastGame", "Lucky Wheel");
+
+  if (!canSpin) return;
+
+  canSpin = false;
+  const btn = document.querySelector("button");
+  btn.disabled = true;
+
+  const prize = prizes[Math.floor(Math.random() * prizes.length)];
+
+  rotation += 720 + Math.random() * 360;
+  document.getElementById("wheel").style.transform =
+    `rotate(${rotation}deg)`;
+  // Add points
+  totalPoints += prize.value;
+  localStorage.setItem("points", totalPoints);
+
+  document.getElementById("result").innerText =
+    prize.text + " | Total: " + totalPoints;
+
+  // Cooldown timer
+  let timeLeft = cooldown;
+  btn.innerText = "Wait " + timeLeft + "s";
+
+  const timer = setInterval(() => {
+    timeLeft--;
+    btn.innerText = "Wait " + timeLeft + "s";
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      btn.innerText = "Spin Now";
+      btn.disabled = false;
+      canSpin = true;
+    }
+  }, 1000);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Slot Machine | Game 9</title>
+  <style>
+    body {
+      background: #020617;
+      color: #fff;
+      text-align: center;
+      font-family: Arial;
+    }
+    h1 { margin-top: 40px; }
+    .slot { font-size: 42px; margin: 20px; }
+    button {
+      padding: 12px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 20px;
+      background: #22c55e;
+      cursor: pointer;
+    }
+    #result { margin-top: 16px; }
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎰 Slot Machine</h1>
+
+<div class="slot" id="slot">🍒 🍋 ⭐</div>
+<button onclick="spin()">SPIN</button>
+<p id="result"></p>
+
+<a href="../index.html">← Back to Home</a>
+
+<script>
+function spin() {
+
+  // ✅ Last played game save (AI Recommendation এর জন্য)
+  localStorage.setItem("lastGame", "Slot Machine");
+
+  const icons = ["🍒","🍋","⭐","💎"];
+  const a = icons[Math.floor(Math.random() * icons.length)];
+  const b = icons[Math.floor(Math.random() * icons.length)];
+  const c = icons[Math.floor(Math.random() * icons.length)];
+
+  document.getElementById("slot").innerText = a + " " + b + " " + c;
+
+  if (a === b && b === c) {
+    document.getElementById("result").innerText = "🎉 You Win!";
+  } else {
+    document.getElementById("result").innerText = "Try Again!";
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Game 9 | Play Smart. Play Free.</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">🎮 Game 9</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#games">Games</a>
+    <a href="leaderboard.html">Leaderboard</a>
+
+    <!-- ✅ Login system container -->
+    <span id="userBox" style="margin-left:15px; color:#22c55e; font-weight:500;"></span>
+
+
+    <span class="lang">
+      <a href="#" onclick="setLang('en')">EN</a> |
+      <a href="#" onclick="setLang('bn')">BN</a>
+    </span>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 data-en="Play Smart. Play Free." data-bn="স্মার্ট খেলুন, ফ্রি খেলুন।">
+  Play Smart. Play Free.
+</h1>
+  <p data-en="Free Online Gaming Platform" data-bn="ফ্রি অনলাইন গেমিং প্ল্যাটফর্ম">
+  Free Online Gaming Platform
+  <a class="btn" href="#games"
+   data-en="Play Now"
+   data-bn="এখনই খেলুন">
+  Play Now
+</a>
+
+<section id="games" class="games">
+  <h2 data-en="Featured Games" data-bn="নির্বাচিত গেম">
+  Featured Games
+</h2>
+ <div class="cards">
+  <div class="card">
+    <h3>🎰 Slot Machine</h3>
+    <a href="games/slot.html">Play</a>
+  </div>
+
+  <div class="card">
+    <h3>🎡 Lucky Wheel</h3>
+    <a href="games/wheel.html">Play</a>
+  </div>
+</div>
+
+
+</section>
+
+<footer>
+  <p>© 2025 Game 9 — Free-to-Play</p>
+</footer>
+<script>
+function setLang(lang) {
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.innerText = el.getAttribute('data-' + lang);
+  });
+}
+</script>
+<script>
+// ===== LOGIN SYSTEM (COLOR FIXED) =====
+const userBox = document.getElementById("userBox");
+let username = localStorage.getItem("username");
+
+function renderUser() {
+  if (username) {
+    userBox.innerHTML = `
+      <span style="color:#22c55e;">Welcome, ${username}</span>
+      <a href="#" onclick="logout()" style="margin-left:8px;color:#38bdf8;">Logout</a>
+    `;
+  } else {
+    userBox.innerHTML = `
+      <a href="#" onclick="login()" style="color:#38bdf8;">Login</a>
+    `;
+  }
+}
+
+function login() {
+  const name = prompt("Enter your username:");
+  if (name && name.trim()) {
+    localStorage.setItem("username", name.trim());
+    username = name.trim();
+    renderUser();
+  }
+}
+
+function logout() {
+  localStorage.removeItem("username");
+  username = null;
+  renderUser();
+}
+
+// page load হলে auto run
+renderUser();
+</script>
+
+</body>
+</html>

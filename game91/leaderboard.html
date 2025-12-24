@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leaderboard | Game 9</title>
+  <style>
+    body {
+      background:#020617;
+      color:#fff;
+      font-family:Arial;
+      text-align:center;
+    }
+    table {
+      margin:40px auto;
+      border-collapse:collapse;
+      width:300px;
+    }
+    th, td {
+      border:1px solid #334155;
+      padding:10px;
+    }
+    th {
+      background:#22c55e;
+      color:#000;
+    }
+    a {
+      color:#38bdf8;
+      text-decoration:none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🏆 Leaderboard</h1>
+
+<table>
+  <tr>
+    <th>Rank</th>
+    <th>Player</th>
+    <th>Points</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>You</td>
+    <td id="points">0</td>
+  </tr>
+</table>
+
+<a href="index.html">← Back to Home</a>
+
+<script>
+document.getElementById("points").innerText =
+  localStorage.getItem("points") || 0;
+</script>
+
+</body>
+</html>
